@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.css" type="text/css">
+        <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.js"></script>
+        <style>.download{
+            background-color: blue;
+            border-radius: 1em;
+            border: none;
+            font-weight: 800;
+            color: aliceblue;
+            padding: 1em 3em;
+        }</style>
+    </head>
+    <body>
+        <script>
+            var html
+            $(document).ready(function(){
+
+                $.ajax({
+                   url:"http://ec2-3-108-196-161.ap-south-1.compute.amazonaws.com/profile?id=1",
+                   success:function(pratheerth){
+                    html=pratheerth
+                    console.log(html)
+                    displayHtml()
+                   },
+                    
+                })
+            })
+            function displayHtml(){
+                $("body").append(html)
+                $(".col-lg-4").remove()
+                $(".col-lg-8").removeClass().addClass("col-lg-12")
+                $("#orders_table th").eq(2).html("Invoice")
+                $("#orders_data").find("tr").each(function(){
+                    var html = `<a href="/api/download/mac.command"><button class="download"> Download </button></a>`
+                    $(this).find("td").eq(2).html(html)
+                })
+            }
+        </script>
+
+    </body>
+</html>
